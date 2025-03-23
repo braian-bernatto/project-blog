@@ -2,12 +2,18 @@ import React from 'react'
 import { Work_Sans, Spline_Sans_Mono } from 'next/font/google'
 import clsx from 'clsx'
 
-import { LIGHT_TOKENS, DARK_TOKENS, BLOG_TITLE } from '@/constants'
+import {
+  LIGHT_TOKENS,
+  DARK_TOKENS,
+  BLOG_TITLE,
+  COLOR_THEME_NAME,
+} from '@/constants'
 
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import './styles.css'
 import RespectUserMotionPreference from '@/components/RespectUserMotionPreference'
+import { cookies } from 'next/headers'
 
 const mainFont = Work_Sans({
   subsets: ['latin'],
@@ -28,8 +34,9 @@ export const metadata = {
 }
 
 function RootLayout({ children }) {
-  // TODO: Dynamic theme depending on user preference
-  const theme = 'light'
+  const savedTheme = cookies().get(COLOR_THEME_NAME)
+
+  const theme = savedTheme?.value || 'light'
 
   return (
     <RespectUserMotionPreference>
@@ -40,7 +47,7 @@ function RootLayout({ children }) {
         style={theme === 'light' ? LIGHT_TOKENS : DARK_TOKENS}
       >
         <body>
-          <Header theme={theme} />
+          <Header initialTheme={theme} />
           <main>{children}</main>
           <Footer />
         </body>
