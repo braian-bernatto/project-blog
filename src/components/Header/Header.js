@@ -33,16 +33,15 @@ function Header({ initialTheme, className, ...delegated }) {
       <Logo />
 
       <div className={styles.actions}>
-        <button className={styles.action}>
+        <a className={styles.action} href='/rss.xml'>
           <Rss
             size='1.5rem'
             style={{
-              // Optical alignment
               transform: 'translate(2px, -2px)',
             }}
           />
           <VisuallyHidden>View RSS feed</VisuallyHidden>
-        </button>
+        </a>
         <button className={styles.action} onClick={toggleTheme}>
           {theme === 'light' ? <Sun size='1.5rem' /> : <Moon size='1.5rem' />}
           <VisuallyHidden>
